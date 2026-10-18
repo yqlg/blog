@@ -1,0 +1,20 @@
+{
+  "name": "liny-blog",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Liny 的个人博客 —— 技术笔记与生活随笔，VitePress + GitHub Pages 零成本方案",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs",
+    "new": "node scripts/new-post.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.43"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

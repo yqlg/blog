@@ -1,0 +1,16 @@
+<script setup lang="ts">
+import DefaultTheme from 'vitepress/theme'
+import { useData } from 'vitepress'
+import PostHeader from './components/PostHeader.vue'
+
+const { Layout } = DefaultTheme
+const { frontmatter } = useData()
+</script>
+
+<template>
+  <Layout>
+    <template #doc-before>
+      <PostHeader v-if="frontmatter.date" />
+    </template>
+  </Layout>
+</template>

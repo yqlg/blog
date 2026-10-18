@@ -1,0 +1,306 @@
+/* ==========================================================================
+   Liny 站点样式：暖白纸感 + 苔绿主色，浅色/深色两套主题
+   ========================================================================== */
+
+:root {
+  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* 品牌色：苔绿 */
+  --vp-c-brand-1: #2f7a63;
+  --vp-c-brand-2: #25634f;
+  --vp-c-brand-3: #1c4f3f;
+  --vp-c-brand-soft: rgba(47, 122, 99, 0.12);
+
+  /* 暖白纸感中性色 */
+  --vp-c-bg: #ffffff;
+  --vp-c-bg-alt: #f8f7f3;
+  --vp-c-bg-soft: #f4f3ee;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-divider: #e7e4db;
+  --vp-c-border: #d8d4c9;
+  --vp-c-gutter: #efede6;
+  --vp-c-text-1: #1b1f1d;
+  --vp-c-text-2: #4c5450;
+  --vp-c-text-3: #8a908b;
+
+  --vp-layout-max-width: 1440px;
+  --vp-sidebar-width: 272px;
+
+  /* 首页 hero */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(118deg, #17493b 0%, #2f7a63 58%, #5aa88a 100%);
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle at 50% 50%,
+    rgba(47, 122, 99, 0.34),
+    rgba(47, 122, 99, 0) 68%
+  );
+  --vp-home-hero-image-filter: blur(60px);
+}
+
+.dark {
+  --vp-c-brand-1: #5fbf9b;
+  --vp-c-brand-2: #7ad0b0;
+  --vp-c-brand-3: #96ddc0;
+  --vp-c-brand-soft: rgba(95, 191, 155, 0.14);
+
+  --vp-c-bg: #141715;
+  --vp-c-bg-alt: #0f1210;
+  --vp-c-bg-soft: #1b1f1c;
+  --vp-c-bg-elv: #1b1f1c;
+  --vp-c-divider: #2b302c;
+  --vp-c-border: #3a403c;
+  --vp-c-gutter: #101312;
+  --vp-c-text-1: #e9ece8;
+  --vp-c-text-2: #a8b0a9;
+  --vp-c-text-3: #6f7770;
+
+  --vp-home-hero-name-background: linear-gradient(118deg, #96ddc0 0%, #5fbf9b 55%, #3f9c79 100%);
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle at 50% 50%,
+    rgba(95, 191, 155, 0.26),
+    rgba(95, 191, 155, 0) 68%
+  );
+}
+
+::selection {
+  background: rgba(47, 122, 99, 0.22);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* --------------------------------------------------------------------------
+   顶栏 / 侧边栏
+   -------------------------------------------------------------------------- */
+
+.VPNav .VPNavBar .title .logo,
+.VPNavBarTitle .logo {
+  height: 26px;
+  width: 26px;
+  border-radius: 7px;
+}
+
+.VPNavBarTitle .title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.VPSidebar {
+  background-color: var(--vp-c-bg-alt);
+}
+
+.VPSidebarItem .text {
+  font-size: 13.5px;
+}
+
+.VPSidebarItem.level-0 > .item > .text {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+}
+
+/* --------------------------------------------------------------------------
+   首页
+   -------------------------------------------------------------------------- */
+
+.VPHero .container {
+  padding-bottom: 8px;
+}
+
+.VPHero .name {
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.VPHero .text {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+  letter-spacing: -0.01em;
+}
+
+.VPHero .tagline {
+  max-width: 34em;
+  color: var(--vp-c-text-2);
+  line-height: 1.75;
+}
+
+.VPHero .image-src {
+  border-radius: 34px;
+  filter: drop-shadow(0 18px 40px rgba(23, 73, 59, 0.18));
+}
+
+.VPHero .actions .VPButton {
+  border-radius: 10px;
+  padding: 0 22px;
+  font-weight: 600;
+}
+
+.VPHome .VPFeature {
+  border-radius: 14px;
+  border: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.VPHome .VPFeature:hover {
+  transform: translateY(-3px);
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 14px 30px rgba(23, 73, 59, 0.1);
+}
+
+.VPHome .VPFeature .title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.VPHome .VPFeature .icon {
+  background-color: var(--vp-c-brand-soft);
+  border-radius: 10px;
+}
+
+.VPHome .VPFeature .details {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--vp-c-text-2);
+}
+
+.VPHome .main {
+  max-width: 880px;
+}
+
+/* 首页正文区 */
+.VPHome .vp-doc {
+  padding-top: 8px;
+}
+
+@media (min-width: 960px) {
+  .VPHero .text {
+    font-size: 30px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   正文排版
+   -------------------------------------------------------------------------- */
+
+.vp-doc {
+  font-size: 15.5px;
+  line-height: 1.82;
+}
+
+.vp-doc p,
+.vp-doc li {
+  color: var(--vp-c-text-1);
+}
+
+.vp-doc h2 {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--vp-c-divider);
+  font-size: 22px;
+  letter-spacing: -0.015em;
+}
+
+/* 文章头已经有一条分隔线，正文第一个 h2 不再重复画线 */
+.vp-doc > div > h2:first-child {
+  margin-top: 8px;
+  padding-top: 0;
+  border-top: none;
+}
+
+.vp-doc h3 {
+  margin-top: 32px;
+  font-size: 17.5px;
+}
+
+.vp-doc a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+
+.vp-doc blockquote {
+  margin: 24px 0;
+  padding: 14px 20px;
+  border-left: 3px solid var(--vp-c-brand-1);
+  border-radius: 0 10px 10px 0;
+  background: var(--vp-c-bg-soft);
+}
+
+.vp-doc blockquote > p {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc img {
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc hr {
+  border: none;
+  border-top: 1px solid var(--vp-c-divider);
+  margin: 40px 0;
+}
+
+.vp-doc code {
+  font-size: 0.86em;
+}
+
+.vp-doc div[class*='language-'] {
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+.vp-doc .custom-block {
+  border-radius: 10px;
+  font-size: 14.5px;
+}
+
+.vp-doc .header-anchor {
+  color: var(--vp-c-brand-1);
+}
+
+/* 文章列表页的年份标题不参与正文样式 */
+.vp-doc .post-list h2 {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   页脚 / 文档页脚
+   -------------------------------------------------------------------------- */
+
+.VPFooter {
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.VPFooter .message,
+.VPFooter .copyright {
+  font-size: 13px;
+  color: var(--vp-c-text-3);
+}
+
+.VPDocFooter {
+  margin-top: 8px;
+}
+
+.VPDocFooter .edit-link-button {
+  font-size: 13px;
+}
+
+/* --------------------------------------------------------------------------
+   搜索框
+   -------------------------------------------------------------------------- */
+
+.DocSearch-Button {
+  border-radius: 10px;
+}
