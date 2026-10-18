@@ -113,7 +113,9 @@ blog/
 
 > 关于页 `docs/about.md` 里的联系方式是直接写在 Markdown 里的，改的时候两处一起改（或把它也换成 `<HomeContact />`）。
 
-**内容与展示是分开的**：新增文章只需要往 `docs/notes`、`docs/essays` 或 `docs/journey` 里丢一个 `.md`，首页「最新文章」、栏目列表、侧边栏、标签、归档、RSS 全部自动更新，不需要改任何列表或配置。
+**内容与展示是分开的**：新增文章只需要往 `docs/notes`、`docs/essays` 或 `docs/journey` 里丢一个 `.md`，首页「最近动态」、栏目列表、侧边栏、标签、归档、RSS 全部自动更新，不需要改任何列表或配置。
+
+> 首页的「最近在做」不是文章、也不进导航，内容写在 `docs/.vitepress/now.mts`（改 `items` 与 `updated` 即可），只在本地手动维护。
 
 ---
 
