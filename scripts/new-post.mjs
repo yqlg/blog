@@ -34,8 +34,8 @@ if (!title) {
   process.exit(1)
 }
 
-if (!['notes', 'essays'].includes(section)) {
-  console.error(`未知栏目: ${section}（只支持 notes 或 essays）`)
+if (!['notes', 'essays', 'journey'].includes(section)) {
+  console.error(`未知栏目: ${section}（只支持 notes、essays 或 journey）`)
   process.exit(1)
 }
 

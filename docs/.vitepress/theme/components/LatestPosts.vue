@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
 import { data as posts } from '../../posts.data.mts'
+import { SECTIONS, type Section } from '../../sections.mts'
 
 const props = withDefaults(defineProps<{ limit?: number }>(), { limit: 6 })
 const latest = posts.slice(0, props.limit)
 
-const sectionLabel = (section: string) => (section === 'notes' ? '笔记' : '随笔')
+const sectionLabel = (section: Section) => SECTIONS[section].short
 const formatDate = (date: string) => date.replace(/-/g, '.')
 </script>
 
@@ -126,6 +127,16 @@ const formatDate = (date: string) => date.replace(/-/g, '.')
 .latest-badge.is-essays {
   color: #a3631a;
   background: rgba(197, 128, 32, 0.12);
+}
+
+.latest-badge.is-journey {
+  color: #37618f;
+  background: rgba(55, 97, 143, 0.12);
+}
+
+.dark .latest-badge.is-journey {
+  color: #8ab4dd;
+  background: rgba(138, 180, 221, 0.14);
 }
 
 .dark .latest-badge.is-essays {

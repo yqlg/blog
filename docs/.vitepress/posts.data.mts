@@ -1,4 +1,5 @@
 import { createContentLoader } from 'vitepress'
+import type { Section } from './sections.mts'
 
 export interface Post {
   title: string
@@ -6,7 +7,7 @@ export interface Post {
   date: string
   tags: string[]
   description: string
-  section: 'notes' | 'essays'
+  section: Section
 }
 
 declare const data: Post[]
@@ -22,20 +23,21 @@ function toDateString(value: unknown): string {
 /**
  * 构建期收集全部文章（只认带 date 的 .md），首页、列表页、标签页共用同一份数据。
  */
-export default createContentLoader(['notes/**/*.md', 'essays/**/*.md'], {
+export default createContentLoader(['notes/**/*.md', 'essays/**/*.md', 'journey/**/*.md'], {
   transform(raw): Post[] {
     return raw
       .filter((page) => page.frontmatter?.date && page.frontmatter?.title)
-      .filter((page) => page.url !== '/notes/' && page.url !== '/essays/')
+      .filter((page) => !page.url.endsWith('/') )
       .map((page) => {
         const tags = page.frontmatter.tags
+        const section = page.url.split('/')[1] as Section
         return {
           title: String(page.frontmatter.title),
           url: page.url,
           date: toDateString(page.frontmatter.date),
           tags: Array.isArray(tags) ? tags.map(String) : tags ? [String(tags)] : [],
           description: String(page.frontmatter.description ?? ''),
-          section: page.url.startsWith('/notes/') ? ('notes' as const) : ('essays' as const)
+          section
         }
       })
       .filter((post) => post.date)

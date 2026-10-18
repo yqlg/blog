@@ -19,22 +19,20 @@ hero:
 
 features:
   - icon: 📝
-    title: 技术笔记
+    title: 技术小站
     details: 语言、工具、部署与踩坑记录。写给自己，也希望能帮到恰好路过的你。
     link: /notes/
-    linkText: 浏览笔记
+    linkText: 进入小站
   - icon: 🌿
-    title: 生活随笔
-    details: 读书、散步、缓慢生长的日常。没有干货，只有一些真实的想法。
+    title: 动态
+    details: 最近在做什么、读了什么、想到什么。短一点，随意一点。
     link: /essays/
-    linkText: 阅读随笔
-  - icon: ⚡
-    title: 零成本运行
-    details: 静态生成 + GitHub Actions 自动部署，一年只需要为可选的域名付费。
-    link: /about
-    linkText: 了解方案
+    linkText: 看看动态
+  - icon: 🎓
+    title: 硕士成长计划
+    details: 课程、科研、英语与每周复盘，把读研这段时间认真记录下来。
+    link: /journey/
+    linkText: 查看进度
 ---
 
 <LatestPosts :limit="6" />
-
-<HomeContact />

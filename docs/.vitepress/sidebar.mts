@@ -1,9 +1,5 @@
 import { scanPosts, groupByYear, type PostMeta } from './utils.mts'
-
-const SECTION_LABEL = {
-  notes: '技术笔记',
-  essays: '生活随笔'
-} as const
+import { SECTIONS, SECTION_KEYS, type Section } from './sections.mts'
 
 /**
  * 侧边栏由文件系统自动生成：新增一篇带 date 的 .md 就会自动出现在侧边栏，
@@ -13,15 +9,15 @@ export function buildSidebar() {
   const posts = scanPosts()
   const sidebar: Record<string, unknown[]> = {}
 
-  for (const section of ['notes', 'essays'] as const) {
+  for (const section of SECTION_KEYS) {
     const items = posts.filter((post) => post.section === section)
     const years = groupByYear(items)
 
-    sidebar[`/${section}/`] = [
+    sidebar[SECTIONS[section].path] = [
       {
-        text: SECTION_LABEL[section],
+        text: SECTIONS[section].label,
         items: [
-          { text: '全部文章', link: `/${section}/` },
+          { text: '全部文章', link: SECTIONS[section].path },
           { text: '按年份归档', link: '/archive' }
         ]
       },
@@ -35,3 +31,5 @@ export function buildSidebar() {
 
   return sidebar
 }
+
+export type { Section }

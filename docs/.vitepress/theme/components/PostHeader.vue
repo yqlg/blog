@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
+import { SECTIONS, type Section } from '../../sections.mts'
 
 const { frontmatter, page } = useData()
 
@@ -12,7 +13,8 @@ onMounted(() => {
   if (chars > 0) minutes.value = Math.max(1, Math.round(chars / 400))
 })
 
-const section = computed(() => (page.value.relativePath.startsWith('essays/') ? '随笔' : '笔记'))
+const section = computed<Section>(() => (page.value.relativePath.split('/')[0] as Section) ?? 'notes')
+const sectionLabel = computed(() => SECTIONS[section.value]?.label ?? '')
 
 const date = computed(() => {
   const value = frontmatter.value.date
@@ -35,7 +37,7 @@ const weekday = computed(() => {
 <template>
   <header class="post-header">
     <div class="post-kicker">
-      <span class="post-section" :class="`is-${section === '笔记' ? 'notes' : 'essays'}`">{{ section }}</span>
+      <span class="post-section" :class="`is-${section}`">{{ sectionLabel }}</span>
       <span class="post-sep">/</span>
       <time :datetime="date">{{ date.replace(/-/g, '.') }} {{ weekday }}</time>
       <template v-if="minutes">
@@ -77,6 +79,14 @@ const weekday = computed(() => {
 
 .post-section.is-essays {
   color: #a3631a;
+}
+
+.post-section.is-journey {
+  color: #37618f;
+}
+
+.dark .post-section.is-journey {
+  color: #8ab4dd;
 }
 
 .dark .post-section.is-essays {

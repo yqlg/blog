@@ -1,13 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { SECTION_KEYS, type Section } from './sections.mts'
 
 const here = path.dirname(fileURLToPath(import.meta.url))
 
 /** 文档根目录（docs/） */
 export const docsDir = path.resolve(here, '..')
 
-export type Section = 'notes' | 'essays'
+export type { Section }
 
 export interface PostMeta {
   title: string
@@ -23,7 +24,7 @@ export interface PostMeta {
   file: string
 }
 
-const SECTION_DIRS: Section[] = ['notes', 'essays']
+const SECTION_DIRS: Section[] = SECTION_KEYS
 
 function unquote(value: string): string {
   return value

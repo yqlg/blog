@@ -3,8 +3,9 @@ import { computed } from 'vue'
 import { withBase } from 'vitepress'
 import { data as posts } from '../../posts.data.mts'
 import type { Post } from '../../posts.data.mts'
+import { SECTIONS, type Section } from '../../sections.mts'
 
-const props = withDefaults(defineProps<{ section?: 'notes' | 'essays' | 'all' }>(), { section: 'all' })
+const props = withDefaults(defineProps<{ section?: Section | 'all' }>(), { section: 'all' })
 
 const filterPosts = computed(() =>
   props.section === 'all' ? posts : posts.filter((post: Post) => post.section === props.section)
@@ -20,7 +21,7 @@ const groups = computed(() => {
   return [...map.entries()].sort((a, b) => Number(b[0]) - Number(a[0]))
 })
 
-const sectionLabel = (section: string) => (section === 'notes' ? '笔记' : '随笔')
+const sectionLabel = (section: Section) => SECTIONS[section].short
 </script>
 
 <template>

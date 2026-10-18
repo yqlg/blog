@@ -92,8 +92,9 @@ export default defineConfig({
     siteTitle: TITLE,
 
     nav: [
-      { text: '笔记', link: '/notes/', activeMatch: '^/notes/' },
-      { text: '随笔', link: '/essays/', activeMatch: '^/essays/' },
+      { text: '技术小站', link: '/notes/', activeMatch: '^/notes/' },
+      { text: '动态', link: '/essays/', activeMatch: '^/essays/' },
+      { text: '硕士计划', link: '/journey/', activeMatch: '^/journey/' },
       { text: '标签', link: '/tags', activeMatch: '^/tags' },
       { text: '归档', link: '/archive', activeMatch: '^/archive' },
       { text: '关于', link: '/about', activeMatch: '^/about' }
@@ -123,10 +124,8 @@ export default defineConfig({
       text: '在 GitHub 上编辑此页'
     },
 
-    footer: {
-      message: '基于 VitePress 构建 · 托管于 GitHub Pages · 全站零成本',
-      copyright: '内容采用 CC BY-NC-SA 4.0 授权'
-    },
+    // 页脚只放图标（GitHub / 邮件 / QQ / RSS），不再渲染默认文字页脚
+    // 具体实现在 theme/components/SiteFooter.vue
 
     search: {
       provider: 'local',
