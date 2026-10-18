@@ -30,7 +30,9 @@ export const site = {
   giscus: {
     repo: 'yqlg/blog',
     repoId: '',
-    category: 'Announcements',
+    // 用 General（或自建的 Comments）而不是 Announcements：
+    // Announcements 只有维护者能开新讨论，读者遇到新文章时无法发起评论
+    category: 'General',
     categoryId: '',
     mapping: 'pathname',
     lang: 'zh-CN',

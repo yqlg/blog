@@ -283,7 +283,9 @@ env:
 
 1. 仓库 **Settings → General → Features** 勾选 **Discussions**。
 2. 安装 giscus App：<https://github.com/apps/giscus>，只授权 `yqlg/blog` 这一个仓库。
-3. 打开 <https://giscus.app/zh-CN>，「仓库」填 `yqlg/blog`，Discussion 分类选 `Announcements`（或新建一个 `Comments`），页面会生成一段 script。
+3. 打开 <https://giscus.app/zh-CN>，「仓库」填 `yqlg/blog`，Discussion 分类选 **General**（或自建一个 `Comments`），页面会生成一段 script。
+
+   > 不建议选 `Announcements`：该类型只允许维护者创建讨论，读者遇到还没有讨论串的新文章时无法发起评论。
 4. 从那段 script 里复制两个值：
 
    ```html
