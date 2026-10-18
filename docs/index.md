@@ -25,11 +25,6 @@ features:
     details: 最近在做什么、读了什么、想到什么。短一点，随意一点。
     link: /essays/
     linkText: 看看动态
-  - icon: 🎓
-    title: 硕士成长计划
-    details: 课程、科研、英语与每周复盘，把读研这段时间认真记录下来。
-    link: /journey/
-    linkText: 查看进度
 ---
 
 <NowDoing />

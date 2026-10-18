@@ -102,7 +102,6 @@ export default defineConfig({
     nav: [
       { text: '技术小站', link: '/notes/', activeMatch: '^/notes/' },
       { text: '动态', link: '/essays/', activeMatch: '^/essays/' },
-      { text: '硕士计划', link: '/journey/', activeMatch: '^/journey/' },
       { text: '关于', link: '/about', activeMatch: '^/about' }
     ],
 

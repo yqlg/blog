@@ -23,7 +23,7 @@ function toDateString(value: unknown): string {
 /**
  * 构建期收集全部文章（只认带 date 的 .md），首页、列表页、标签页共用同一份数据。
  */
-export default createContentLoader(['notes/**/*.md', 'essays/**/*.md', 'journey/**/*.md'], {
+export default createContentLoader(['notes/**/*.md', 'essays/**/*.md'], {
   transform(raw): Post[] {
     return raw
       .filter((page) => page.frontmatter?.date && page.frontmatter?.title)

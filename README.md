@@ -95,7 +95,6 @@ blog/
 │  │  └─ images/                  # 文章配图（放进来自动复制到 /images/）
 │  ├─ notes/                      # 技术小站（每篇一个 .md）
 │  ├─ essays/                     # 动态
-│  ├─ journey/                    # 硕士成长计划
 │  ├─ index.md                    # 首页
 │  └─ about.md                    # 关于
 ├─ scripts/new-post.mjs           # 一条命令新建文章
@@ -111,7 +110,7 @@ blog/
 
 > 关于页 `docs/about.md` 里的联系方式是直接写在 Markdown 里的，改的时候两处一起改（或把它也换成 `<HomeContact />`）。
 
-**内容与展示是分开的**：新增文章只需要往 `docs/notes`、`docs/essays` 或 `docs/journey` 里丢一个 `.md`，首页「最近动态」、栏目列表、侧边栏、RSS 全部自动更新，不需要改任何列表或配置。
+**内容与展示是分开的**：新增文章只需要往 `docs/notes` 或 `docs/essays` 里丢一个 `.md`，首页「最近动态」、栏目列表、侧边栏、RSS 全部自动更新，不需要改任何列表或配置。
 
 > 首页的「最近在做」不是文章、也不进导航，内容写在 `docs/.vitepress/now.mts`（改 `items` 与 `updated` 即可），只在本地手动维护。
 
@@ -146,13 +145,13 @@ npm run new -- "用 VitePress 搭一个零成本博客" --section notes --tags �
 
 | 参数 | 说明 |
 | --- | --- |
-| `--section` | `notes`（技术小站）、`essays`（动态）或 `journey`（硕士成长计划），默认 `notes` |
+| `--section` | `notes`（技术小站）或 `essays`（动态），默认 `notes` |
 | `--slug` | 英文短横线文件名，推荐显式指定；中文标题不传时会退化成 `post` |
 | `--tags` | 逗号分隔，例如 `--tags 建站,部署` |
 
 ### 方式二：手动新建
 
-在 `docs/notes/`、`docs/essays/` 或 `docs/journey/` 下创建 `YYYY-MM-DD-slug.md`，开头写：
+在 `docs/notes/` 或 `docs/essays/` 下创建 `YYYY-MM-DD-slug.md`，开头写：
 
 ```markdown
 ---
@@ -252,7 +251,7 @@ env:
 
 ### 6.4 部署自检清单
 
-- [ ] 首页、三个栏目（技术小站 / 动态 / 硕士成长计划）都能打开
+- [ ] 首页与两个栏目（技术小站 / 动态）都能打开
 - [ ] 图片与样式正常（样式丢失 = `BASE` 写错）
 - [ ] 搜索框输入「部署」有结果（中文分词生效）
 - [ ] `/feed.xml` 能打开，RSS 阅读器能订阅
@@ -385,7 +384,7 @@ ssh -T git@github.com   # 出现 Hi yqlg! 即成功
 
 ## 十、已知占位内容（请替换）
 
-- `docs/notes/` 下有 3 篇示例文章，用于展示排版；`docs/essays/`（动态）与 `docs/journey/`（硕士成长计划）目前为空，等你填内容。
+- `docs/notes/` 下有 3 篇示例文章，用于展示排版；`docs/essays/`（动态）目前为空，等你填内容。
 - `docs/about.md` 的自我介绍是通用文案，联系方式已按实际信息填写。
 - `docs/.vitepress/site.mts` 里的 giscus `repoId` / `categoryId` 与统计 token 还是空的，按第八节填写。
 - 头像与分享图是脚本生成的：`python scripts/gen-og.py` 可重新生成 `avatar.png` / `og.png`；想换成自己的照片，直接替换 `docs/public/avatar.png` 与 `logo.svg` 即可。
@@ -395,5 +394,6 @@ ssh -T git@github.com   # 出现 Hi yqlg! 即成功
 
 - 代码：MIT
 - 文章：CC BY-NC-SA 4.0
+
 
 
