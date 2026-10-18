@@ -124,10 +124,8 @@ export default defineConfig({
     returnToTopLabel: '回到顶部',
     langMenuLabel: '切换语言',
 
-    editLink: {
-      pattern: 'https://github.com/yqlg/blog/edit/main/docs/:path',
-      text: '在 GitHub 上编辑此页'
-    },
+    // 「在 GitHub 上编辑此页」入口已关闭
+    editLink: false,
 
     // 页脚只放图标（GitHub / 邮件 / QQ / RSS），不再渲染默认文字页脚
     // 具体实现在 theme/components/SiteFooter.vue
