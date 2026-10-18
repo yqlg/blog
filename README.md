@@ -66,7 +66,7 @@
 - 自带本地全文搜索（本项目已针对中文重新分词）、深色模式、代码高亮、侧边栏、SEO 元信息；
 - 内容就是文件，没有数据库。十年后 `git clone` 下来照样能构建。
 
-对比 Hexo / Hugo / Astro：功能都能做到，VitePress 的取舍是「用最少的配置换最快的上手」，代价是博客感需要自己补一点（本项目已经补好：首页文章流、标签、归档、阅读列表）。
+对比 Hexo / Hugo / Astro：功能都能做到，VitePress 的取舍是「用最少的配置换最快的上手」，代价是博客感需要自己补一点（本项目已经补好：首页文章流、栏目列表、阅读宽度）。
 
 ---
 
@@ -78,7 +78,7 @@ blog/
 │  ├─ .vitepress/
 │  │  ├─ config.mts               # 站点配置：导航、侧边栏、搜索、SEO
 │  │  ├─ site.mts                 # ★ 个人信息 / 联系方式 / giscus / 统计的集中配置
-│  │  ├─ posts.data.mts           # 构建期收集全部文章（首页/标签/归档共用）
+│  │  ├─ posts.data.mts           # 构建期收集全部文章（首页/栏目列表共用）
 │  │  ├─ sidebar.mts              # 按文件系统自动生成侧边栏
 │  │  ├─ feed.mts                 # 构建结束后生成 /feed.xml
 │  │  ├─ utils.mts                # frontmatter 解析、文章扫描
@@ -97,9 +97,7 @@ blog/
 │  ├─ essays/                     # 动态
 │  ├─ journey/                    # 硕士成长计划
 │  ├─ index.md                    # 首页
-│  ├─ about.md                    # 关于
-│  ├─ tags.md                     # 标签页
-│  └─ archive.md                  # 归档页
+│  └─ about.md                    # 关于
 ├─ scripts/new-post.mjs           # 一条命令新建文章
 ├─ scripts/gen-og.py              # 重新生成 avatar.png / og.png
 ├─ .github/workflows/deploy.yml   # push 即部署
@@ -113,7 +111,7 @@ blog/
 
 > 关于页 `docs/about.md` 里的联系方式是直接写在 Markdown 里的，改的时候两处一起改（或把它也换成 `<HomeContact />`）。
 
-**内容与展示是分开的**：新增文章只需要往 `docs/notes`、`docs/essays` 或 `docs/journey` 里丢一个 `.md`，首页「最近动态」、栏目列表、侧边栏、标签、归档、RSS 全部自动更新，不需要改任何列表或配置。
+**内容与展示是分开的**：新增文章只需要往 `docs/notes`、`docs/essays` 或 `docs/journey` 里丢一个 `.md`，首页「最近动态」、栏目列表、侧边栏、RSS 全部自动更新，不需要改任何列表或配置。
 
 > 首页的「最近在做」不是文章、也不进导航，内容写在 `docs/.vitepress/now.mts`（改 `items` 与 `updated` 即可），只在本地手动维护。
 
@@ -167,7 +165,7 @@ description: 一句话摘要，会出现在列表、搜索结果和 RSS 里。
 正文……
 ```
 
-- `title` 与 `date` 必填；**没有 `date` 的文章不会出现在首页、归档和侧边栏**，可以当草稿用。
+- `title` 与 `date` 必填；**没有 `date` 的文章不会出现在首页和侧边栏**，可以当草稿用。
 - 文件名决定 URL：`docs/notes/2026-10-18-foo.md` → `/notes/2026-10-18-foo.html`。用英文、数字和短横线，别用空格。
 - 内部链接写相对路径：`[上一篇](./2026-10-02-github-actions-deploy)`。
 - 图片放 `docs/public/images/`，引用 `/images/xxx.png`。
@@ -397,4 +395,5 @@ ssh -T git@github.com   # 出现 Hi yqlg! 即成功
 
 - 代码：MIT
 - 文章：CC BY-NC-SA 4.0
+
 

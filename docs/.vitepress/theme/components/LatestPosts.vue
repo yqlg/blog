@@ -16,10 +16,12 @@ const props = withDefaults(
     limit: 6,
     section: 'all',
     title: '最新文章',
-    moreText: '全部归档',
-    moreLink: '/archive.html'
+    moreText: '全部文章',
+    moreLink: ''
   }
 )
+
+const moreHref = props.moreLink || (props.section === 'all' ? '/notes/' : SECTIONS[props.section].path)
 
 const latest = posts.filter((post) => props.section === 'all' || post.section === props.section).slice(0, props.limit)
 
@@ -31,7 +33,7 @@ const formatDate = (date: string) => date.replace(/-/g, '.')
   <section class="latest-posts">
     <header class="latest-head">
       <h2 class="latest-title">{{ title }}</h2>
-      <a class="latest-more" :href="withBase(moreLink)">{{ moreText }} →</a>
+      <a class="latest-more" :href="withBase(moreHref)">{{ moreText }} →</a>
     </header>
 
     <ul class="latest-list">

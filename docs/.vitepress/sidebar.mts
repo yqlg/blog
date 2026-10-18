@@ -16,10 +16,7 @@ export function buildSidebar() {
     sidebar[SECTIONS[section].path] = [
       {
         text: SECTIONS[section].label,
-        items: [
-          { text: '全部文章', link: SECTIONS[section].path },
-          { text: '按年份归档', link: '/archive' }
-        ]
+        items: [{ text: '全部文章', link: SECTIONS[section].path }]
       },
       ...years.map(([year, list], index) => ({
         text: `${year} 年 · ${list.length} 篇`,

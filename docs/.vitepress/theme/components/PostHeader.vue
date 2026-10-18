@@ -51,7 +51,7 @@ const weekday = computed(() => {
     <p v-if="frontmatter.description" class="post-desc">{{ frontmatter.description }}</p>
 
     <div v-if="tags.length" class="post-tags">
-      <a v-for="tag in tags" :key="tag" class="post-tag" :href="withBase('/tags.html')">#{{ tag }}</a>
+      <span v-for="tag in tags" :key="tag" class="post-tag">#{{ tag }}</span>
     </div>
   </header>
 </template>
