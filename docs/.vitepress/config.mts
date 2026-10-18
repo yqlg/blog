@@ -34,6 +34,13 @@ const head: HeadConfig[] = [
   ['meta', { name: 'format-detection', content: 'telephone=no' }]
 ]
 
+// 首屏渲染前先按「本地时间 + 上次选择」定主题，避免白天/黑夜切换时闪一下
+head.push([
+  'script',
+  {},
+  `(function(){try{var m=localStorage.getItem('liny-color-mode')||'auto';var h=new Date().getHours();var d=m==='dark'||(m==='auto'&&(h<6||h>=18));var r=document.documentElement;if(d){r.classList.add('dark')}r.style.colorScheme=d?'dark':'light'}catch(e){}})()`
+])
+
 // Cloudflare Web Analytics：免费、无 Cookie，不需要同意弹窗
 if (analyticsToken) {
   head.push([
@@ -52,6 +59,8 @@ export default defineConfig({
   titleTemplate: `:title · ${TITLE}`,
   description: DESCRIPTION,
   base,
+  // 主题由 theme/mode.ts 接管：按时间自动切换 + 手动覆盖
+  appearance: false,
   lastUpdated: true,
   cleanUrls: false,
   ignoreDeadLinks: false,
@@ -95,8 +104,6 @@ export default defineConfig({
       { text: '技术小站', link: '/notes/', activeMatch: '^/notes/' },
       { text: '动态', link: '/essays/', activeMatch: '^/essays/' },
       { text: '硕士计划', link: '/journey/', activeMatch: '^/journey/' },
-      { text: '标签', link: '/tags', activeMatch: '^/tags' },
-      { text: '归档', link: '/archive', activeMatch: '^/archive' },
       { text: '关于', link: '/about', activeMatch: '^/about' }
     ],
 

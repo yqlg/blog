@@ -9,7 +9,6 @@ async function copyQQ() {
   try {
     await navigator.clipboard.writeText(site.author.qq)
   } catch {
-    // 老浏览器兜底：不弹窗，只是保持安静
     return
   }
   copied.value = true
@@ -19,7 +18,9 @@ async function copyQQ() {
 
 <template>
   <footer class="site-footer">
-    <nav class="site-footer-icons" aria-label="联系方式">
+    <nav class="site-footer-nav" aria-label="联系方式">
+      <span class="site-footer-label">联系我</span>
+
       <a :href="`mailto:${site.author.email}`" aria-label="发邮件" title="发邮件">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <rect x="3" y="5" width="18" height="14" rx="2.5" />
@@ -38,11 +39,12 @@ async function copyQQ() {
       </a>
 
       <button type="button" aria-label="复制 QQ 号" title="QQ" @click="copyQQ">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-3-.5L4 21l1.6-3.8A8.2 8.2 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z" />
-          <circle cx="8.6" cy="11" r="1" fill="currentColor" stroke="none" />
-          <circle cx="12" cy="11" r="1" fill="currentColor" stroke="none" />
-          <circle cx="15.4" cy="11" r="1" fill="currentColor" stroke="none" />
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="qq-icon">
+          <path
+            d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"
+            fill="currentColor"
+            stroke="none"
+          />
         </svg>
         <span class="site-footer-toast" :class="{ show: copied }">已复制</span>
       </button>
@@ -63,15 +65,23 @@ async function copyQQ() {
   padding: 26px 24px 34px;
 }
 
-.site-footer-icons {
+.site-footer-nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 26px;
+  gap: 16px;
 }
 
-.site-footer-icons a,
-.site-footer-icons button {
+.site-footer-label {
+  margin-right: 2px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--vp-c-text-3);
+  user-select: none;
+}
+
+.site-footer-nav a,
+.site-footer-nav button {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -87,13 +97,13 @@ async function copyQQ() {
   transition: color 0.18s ease, background-color 0.18s ease;
 }
 
-.site-footer-icons a:hover,
-.site-footer-icons button:hover {
+.site-footer-nav a:hover,
+.site-footer-nav button:hover {
   color: var(--vp-c-brand-1);
   background: var(--vp-c-bg-soft);
 }
 
-.site-footer-icons svg {
+.site-footer-nav svg {
   width: 19px;
   height: 19px;
   fill: none;
@@ -101,6 +111,13 @@ async function copyQQ() {
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+/* QQ 企鹅是实心图标，不受上面的描边规则影响 */
+.site-footer-nav svg.qq-icon {
+  width: 20px;
+  height: 20px;
+  stroke: none;
 }
 
 .site-footer-toast {
@@ -123,5 +140,15 @@ async function copyQQ() {
 
 .site-footer-toast.show {
   opacity: 1;
+}
+
+@media (max-width: 520px) {
+  .site-footer-nav {
+    gap: 10px;
+  }
+
+  .site-footer-label {
+    letter-spacing: 0.06em;
+  }
 }
 </style>

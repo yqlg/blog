@@ -6,15 +6,12 @@ hero:
   name: Liny
   text: 写代码，也写生活
   tagline: 这里是我的个人博客。用 Markdown 记录技术与日常，用 Git 管理每一次修改，托管在 GitHub Pages 上，零成本长期运行。
-  image:
-    src: /logo.svg
-    alt: Liny
   actions:
     - theme: brand
       text: 开始阅读
       link: /notes/
     - theme: alt
-      text: 关于这个博客
+      text: 关于我
       link: /about
 
 features:

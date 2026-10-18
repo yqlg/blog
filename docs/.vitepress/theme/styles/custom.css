@@ -332,3 +332,26 @@ html {
 .DocSearch-Button {
   border-radius: 10px;
 }
+
+/* 主题切换按钮：浅色显示太阳，深色显示月亮（放在全局，避免 scoped :global 编译问题） */
+.theme-toggle .icon-sun {
+  display: block;
+}
+
+.theme-toggle .icon-moon {
+  display: none;
+}
+
+html.dark .theme-toggle .icon-sun {
+  display: none;
+}
+
+html.dark .theme-toggle .icon-moon {
+  display: block;
+}
+
+/* 首页没有大图后，正文限宽，避免单行太长 */
+.VPHero .main {
+  max-width: 760px;
+}
+

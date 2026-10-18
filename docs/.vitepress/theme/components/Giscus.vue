@@ -1,14 +1,27 @@
 <script setup lang="ts">
-import { computed, onMounted, watch } from 'vue'
-import { useData } from 'vitepress'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { site } from '../../site.mts'
 
-const { isDark } = useData()
 const cfg = site.giscus
 const isDev = import.meta.env.DEV
 
 /** repoId / categoryId 未填写时整个评论区不渲染 */
 const configured = computed(() => Boolean(cfg.repoId && cfg.categoryId))
+
+function currentTheme() {
+  return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+}
+
+/** 把主题同步给 giscus iframe */
+function syncTheme() {
+  const frame = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame')
+  frame?.contentWindow?.postMessage(
+    { giscus: { setConfig: { theme: currentTheme() } } },
+    'https://giscus.app'
+  )
+}
+
+let observer: MutationObserver | undefined
 
 function mount() {
   const container = document.getElementById('giscus-container')
@@ -30,7 +43,7 @@ function mount() {
     'data-reactions-enabled': cfg.reactionsEnabled,
     'data-emit-metadata': '0',
     'data-input-position': cfg.inputPosition,
-    'data-theme': isDark.value ? 'dark' : 'light',
+    'data-theme': currentTheme(),
     'data-lang': cfg.lang,
     'data-loading': 'lazy'
   }
@@ -42,17 +55,14 @@ function mount() {
 }
 
 onMounted(() => {
-  if (configured.value) mount()
+  if (!configured.value) return
+  mount()
+  // 主题由 html 上的 class 控制，直接监听它即可
+  observer = new MutationObserver(syncTheme)
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
 })
 
-// 主题切换时同步 iframe 内的配色
-watch(isDark, (dark) => {
-  const frame = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame')
-  frame?.contentWindow?.postMessage(
-    { giscus: { setConfig: { theme: dark ? 'dark' : 'light' } } },
-    'https://giscus.app'
-  )
-})
+onUnmounted(() => observer?.disconnect())
 </script>
 
 <template>
