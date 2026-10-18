@@ -337,6 +337,46 @@ Pages 的 Source 必须是 **GitHub Actions**；仓库名与 `BASE` 必须一致
 **`npm ci` 报错找不到 lockfile？**
 把 `package-lock.json` 一并提交。首次 `npm install` 后就会生成。
 
+**Actions 构建失败，报 `Cannot find module @rollup/rollup-linux-x64-gnu`？**
+lockfile 是在 Windows 上生成的，里面只记了 win32 的原生包，Ubuntu runner 装不到 Linux 版本。修复：
+
+```powershell
+Remove-Item -Recurse -Force node_modules, package-lock.json
+npm install
+Select-String -Path package-lock.json -Pattern "rollup-linux-x64-gnu" -Quiet   # 应为 True
+git add package-lock.json
+git commit -m "fix(ci): 补全 Linux 原生依赖"
+git push
+```
+
+**`git push` 报 `Connection was reset` / `Could not connect to server`？**
+国内网络对 `github.com:443` 时通时断，和代码无关。按顺序试：
+
+```bash
+git push                                  # 多半重试一两次就过
+git -c http.version=HTTP/1.1 push -u origin main
+```
+
+长期方案是走 SSH（`ssh.github.com:443` 通常比 HTTPS 稳）：
+
+```powershell
+ssh-keygen -t ed25519 -C "blog" -f $env:USERPROFILE\.ssh\id_ed25519
+Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub   # 贴到 https://github.com/settings/ssh/new
+```
+
+```text
+# ~/.ssh/config
+Host github.com
+  HostName ssh.github.com
+  Port 443
+  User git
+```
+
+```powershell
+git remote set-url origin git@github.com:yqlg/blog.git
+ssh -T git@github.com   # 出现 Hi yqlg! 即成功
+```
+
 **以后想换主题 / 换生成器？**
 内容全是 Markdown，换掉 `docs/.vitepress` 即可，文章一个字都不用动。
 
