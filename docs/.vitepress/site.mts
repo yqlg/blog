@@ -29,11 +29,11 @@ export const site = {
    */
   giscus: {
     repo: 'yqlg/blog',
-    repoId: '',
+    repoId: 'R_kgDOVOIyjw',
     // 用 General（或自建的 Comments）而不是 Announcements：
     // Announcements 只有维护者能开新讨论，读者遇到新文章时无法发起评论
     category: 'General',
-    categoryId: '',
+    categoryId: 'DIC_kwDOVOIyj84DI22S',
     mapping: 'pathname',
     lang: 'zh-CN',
     inputPosition: 'top',
