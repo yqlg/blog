@@ -42,9 +42,12 @@
 | 备用镜像 | Cloudflare Pages | ￥0（每月 500 次构建，请求不限） |
 | HTTPS 证书 | 两家都自动签发 | ￥0 |
 | 搜索 / RSS / 统计 | 本地全文搜索 + 内置 RSS + CF Web Analytics | ￥0 |
+| 评论 | giscus（基于 GitHub Discussions） | ￥0 |
 | **域名（可选）** | `yqlg.github.io` / `*.pages.dev` 免费；自购 `.com` 约 ￥60–90/年 | **￥0 起** |
 
 结论：**不买域名 = 完全 0 成本；买域名 = 一年一杯咖啡的钱。**
+
+> 当前状态：**暂不购买域名**，主站使用 <https://yqlg.github.io/blog/>，等站点内容稳定后再考虑域名。买域名时按 [6.2](#_6-2-自定义域名-唯一的可选花费) 操作即可，只需改两处。
 
 ### 额度用完了吗？
 
@@ -74,15 +77,22 @@ blog/
 ├─ docs/                          # 站点源码（VitePress 的 srcDir）
 │  ├─ .vitepress/
 │  │  ├─ config.mts               # 站点配置：导航、侧边栏、搜索、SEO
+│  │  ├─ site.mts                 # ★ 个人信息 / 联系方式 / giscus / 统计的集中配置
 │  │  ├─ posts.data.mts           # 构建期收集全部文章（首页/标签/归档共用）
 │  │  ├─ sidebar.mts              # 按文件系统自动生成侧边栏
 │  │  ├─ feed.mts                 # 构建结束后生成 /feed.xml
 │  │  ├─ utils.mts                # frontmatter 解析、文章扫描
 │  │  └─ theme/                   # 自定义主题
 │  │     ├─ index.ts
-│  │     ├─ components/           # LatestPosts / PostList / TagList
+│  │     ├─ Layout.vue            # 文章头 + 评论区的插槽
+│  │     ├─ components/           # LatestPosts / PostList / TagList / HomeContact / Giscus / PostHeader
 │  │     └─ styles/custom.css     # 配色与排版
-│  ├─ public/                     # 原样复制的静态资源（图标、图片）
+│  ├─ public/                     # 原样复制的静态资源
+│  │  ├─ logo.svg                 # 站点标记（导航、首页）
+│  │  ├─ favicon.svg              # 浏览器图标
+│  │  ├─ avatar.png               # 512×512，Apple touch icon / 社交头像
+│  │  ├─ og.png                   # 1200×630 分享卡片
+│  │  └─ images/                  # 文章配图（放进来自动复制到 /images/）
 │  ├─ notes/                      # 技术笔记（每篇一个 .md）
 │  ├─ essays/                     # 生活随笔
 │  ├─ index.md                    # 首页
@@ -90,10 +100,17 @@ blog/
 │  ├─ tags.md                     # 标签页
 │  └─ archive.md                  # 归档页
 ├─ scripts/new-post.mjs           # 一条命令新建文章
+├─ scripts/gen-og.py              # 重新生成 avatar.png / og.png
 ├─ .github/workflows/deploy.yml   # push 即部署
 ├─ package.json
 └─ README.md
 ```
+
+### 改站点信息只改一个文件
+
+`docs/.vitepress/site.mts` 是唯一的信息源：站名、简介、邮箱、GitHub、QQ、giscus 参数、统计 token 都在里面。改完之后全站（首页联系区、关于页数据源、SEO、评论、统计）一起生效。
+
+> 关于页 `docs/about.md` 里的联系方式是直接写在 Markdown 里的，改的时候两处一起改（或把它也换成 `<HomeContact />`）。
 
 **内容与展示是分开的**：新增文章只需要往 `docs/notes` 或 `docs/essays` 里丢一个 `.md`，首页「最新文章」、栏目列表、侧边栏、标签、归档、RSS 全部自动更新，不需要改任何列表或配置。
 
@@ -240,6 +257,8 @@ env:
 - [ ] `/feed.xml` 能打开，RSS 阅读器能订阅
 - [ ] 手机宽度下导航和卡片不溢出
 - [ ] 深色模式切换正常
+- [ ] 文末出现评论区（需先填 giscus ID）
+- [ ] Cloudflare 面板能看到访问记录（需先填统计 token）
 
 ---
 
@@ -254,13 +273,45 @@ env:
 
 ---
 
-## 八、可选的免费增强
+## 八、评论与统计（已接好，填 ID 即生效）
 
-| 需求 | 免费方案 | 接入方式 |
+两者的代码都已经写好，只差一个属于你的标识。都免费，各花两三分钟。
+
+### 8.1 评论：giscus
+
+原理：每篇文章的评论存成 GitHub Discussions 里的一个讨论串，读者用 GitHub 账号登录后发言。不花钱、无广告、数据在你自己的仓库里。
+
+1. 仓库 **Settings → General → Features** 勾选 **Discussions**。
+2. 安装 giscus App：<https://github.com/apps/giscus>，只授权 `yqlg/blog` 这一个仓库。
+3. 打开 <https://giscus.app/zh-CN>，「仓库」填 `yqlg/blog`，Discussion 分类选 `Announcements`（或新建一个 `Comments`），页面会生成一段 script。
+4. 从那段 script 里复制两个值：
+
+   ```html
+   data-repo-id="R_kgDOxxxxxx"
+   data-category-id="DIC_kwDOxxxxxx"
+   ```
+
+5. 填进 `docs/.vitepress/site.mts` 的 `giscus.repoId` / `giscus.categoryId`，提交推送。
+
+没填之前评论区不会渲染（本地 `npm run dev` 会显示一条提示），线上不会出现空白块或报错。
+
+### 8.2 统计：Cloudflare Web Analytics
+
+免费、无 Cookie、不采集个人信息，所以不需要同意弹窗。
+
+1. 登录 Cloudflare → 左侧 **Analytics & Logs → Web Analytics**。
+2. **Add a site**，填 `yqlg.github.io`（不需要把域名托管到 Cloudflare）。
+3. 复制生成的 token（形如 `a1b2c3…`）。
+4. 填进 `docs/.vitepress/site.mts` 的 `analytics.cloudflareToken`；也可以在 CI 里用环境变量 `CF_ANALYTICS_TOKEN` 覆盖。
+5. 推送后在面板里看访问量、来源和页面排行（数据有几分钟延迟）。
+
+留空则完全不注入脚本，页面没有任何第三方请求。
+
+### 8.3 其它可选增强
+
+| 需求 | 免费方案 | 说明 |
 | --- | --- | --- |
-| 评论 | [giscus](https://giscus.app/zh-CN) | 仓库开启 Discussions，粘贴一段 script 到主题 |
-| 访问统计 | Cloudflare Web Analytics / Umami Cloud 免费版 | 加一段 script |
-| 图片压缩 | Squoosh / `sharp` 脚本 | 上传前手动压缩即可 |
+| 图片压缩 | Squoosh（在线）/ Pillow | 上传前压一下，WebP 优先 |
 | 站点地图 | 已内置 | 构建后自动生成 `sitemap.xml` |
 | RSS | 已内置 | `/feed.xml` |
 | 自动检查死链 | GitHub Actions 加一步 `lychee` | 可选 |
@@ -292,9 +343,10 @@ Pages 的 Source 必须是 **GitHub Actions**；仓库名与 `BASE` 必须一致
 ## 十、已知占位内容（请替换）
 
 - `docs/notes/`、`docs/essays/` 下 6 篇文章是**示例**，用于展示排版效果，可直接删除或改写。
-- `docs/about.md` 里的自我介绍是占位文案。
+- `docs/about.md` 的自我介绍是通用文案，联系方式已按实际信息填写。
+- `docs/.vitepress/site.mts` 里的 giscus `repoId` / `categoryId` 与统计 token 还是空的，按第八节填写。
+- 头像与分享图是脚本生成的：`python scripts/gen-og.py` 可重新生成 `avatar.png` / `og.png`；想换成自己的照片，直接替换 `docs/public/avatar.png` 与 `logo.svg` 即可。
 - 全站的 GitHub 链接指向 `https://github.com/yqlg`，如需修改请全局搜索 `yqlg`。
-- 头像 / 图标是 `docs/public/logo.svg`（字母 L），可换成自己的图片。
 
 ## 授权
 

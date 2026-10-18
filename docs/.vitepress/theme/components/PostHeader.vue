@@ -1,8 +1,16 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
 
 const { frontmatter, page } = useData()
+
+const minutes = ref(0)
+
+onMounted(() => {
+  const content = document.querySelector('.vp-doc > div')
+  const chars = (content?.textContent ?? '').replace(/\s+/g, '').length
+  if (chars > 0) minutes.value = Math.max(1, Math.round(chars / 400))
+})
 
 const section = computed(() => (page.value.relativePath.startsWith('essays/') ? '随笔' : '笔记'))
 
@@ -30,6 +38,10 @@ const weekday = computed(() => {
       <span class="post-section" :class="`is-${section === '笔记' ? 'notes' : 'essays'}`">{{ section }}</span>
       <span class="post-sep">/</span>
       <time :datetime="date">{{ date.replace(/-/g, '.') }} {{ weekday }}</time>
+      <template v-if="minutes">
+        <span class="post-sep">/</span>
+        <span>约 {{ minutes }} 分钟</span>
+      </template>
     </div>
 
     <h1 class="post-title">{{ frontmatter.title }}</h1>

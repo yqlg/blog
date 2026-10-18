@@ -1,25 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="Liny">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#123d31" />
-      <stop offset="52%" stop-color="#2f7a63" />
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f3d31" />
+      <stop offset="55%" stop-color="#2f7a63" />
       <stop offset="100%" stop-color="#63b394" />
     </linearGradient>
-    <linearGradient id="shine" x1="0" y1="0" x2="0.7" y2="1">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22" />
-      <stop offset="60%" stop-color="#ffffff" stop-opacity="0" />
-    </linearGradient>
   </defs>
-  <rect width="240" height="240" rx="54" fill="url(#g)" />
-  <rect width="240" height="240" rx="54" fill="url(#shine)" />
-  <text
-    x="120"
-    y="176"
-    text-anchor="middle"
-    font-family="Georgia, 'Times New Roman', 'Songti SC', serif"
-    font-size="150"
-    font-weight="600"
-    fill="#ffffff"
-    opacity="0.97"
-  >L</text>
+  <rect width="240" height="240" rx="56" fill="url(#mark)" />
+  <path
+    d="M92 70 V150 H156"
+    fill="none"
+    stroke="#ffffff"
+    stroke-width="22"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle cx="168" cy="74" r="9" fill="#b9ecd8" />
 </svg>

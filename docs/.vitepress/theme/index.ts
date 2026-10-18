@@ -5,6 +5,7 @@ import Layout from './Layout.vue'
 import LatestPosts from './components/LatestPosts.vue'
 import PostList from './components/PostList.vue'
 import TagList from './components/TagList.vue'
+import HomeContact from './components/HomeContact.vue'
 import './styles/custom.css'
 
 export default {
@@ -15,5 +16,6 @@ export default {
     app.component('LatestPosts', LatestPosts)
     app.component('PostList', PostList)
     app.component('TagList', TagList)
+    app.component('HomeContact', HomeContact)
   }
 } satisfies Theme

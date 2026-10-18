@@ -131,8 +131,9 @@ html {
 }
 
 .VPHero .image-src {
-  border-radius: 34px;
-  filter: drop-shadow(0 18px 40px rgba(23, 73, 59, 0.18));
+  max-width: 264px;
+  border-radius: 30px;
+  filter: drop-shadow(0 16px 34px rgba(23, 73, 59, 0.16));
 }
 
 .VPHero .actions .VPButton {
@@ -141,17 +142,25 @@ html {
   font-weight: 600;
 }
 
+/* 三栏栏目：用细分隔线代替卡片，保持简约 */
 .VPHome .VPFeature {
-  border-radius: 14px;
-  border: 1px solid var(--vp-c-divider);
-  background: var(--vp-c-bg-soft);
-  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  padding: 0;
+  border: none;
+  border-top: 1px solid var(--vp-c-divider);
+  border-radius: 0;
+  background: transparent;
+  transition: border-color 0.2s ease;
 }
 
 .VPHome .VPFeature:hover {
-  transform: translateY(-3px);
-  border-color: var(--vp-c-brand-1);
-  box-shadow: 0 14px 30px rgba(23, 73, 59, 0.1);
+  transform: none;
+  background: transparent;
+  box-shadow: none;
+  border-top-color: var(--vp-c-brand-1);
+}
+
+.VPHome .VPFeature .box {
+  padding: 22px 0 0;
 }
 
 .VPHome .VPFeature .title {
@@ -160,14 +169,22 @@ html {
 }
 
 .VPHome .VPFeature .icon {
-  background-color: var(--vp-c-brand-soft);
-  border-radius: 10px;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 14px;
+  font-size: 19px;
+  background: transparent;
+  border-radius: 8px;
 }
 
 .VPHome .VPFeature .details {
   font-size: 13.5px;
   line-height: 1.65;
   color: var(--vp-c-text-2);
+}
+
+.VPHome .VPFeature .link-text {
+  margin-top: 10px;
 }
 
 .VPHome .main {
@@ -181,7 +198,18 @@ html {
 
 @media (min-width: 960px) {
   .VPHero .text {
-    font-size: 30px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* 手机上让标记小一点，把首屏留给文字 */
+  .VPHero .image-src {
+    max-width: 200px;
+  }
+
+  .VPHero .name {
+    font-size: 44px;
   }
 }
 

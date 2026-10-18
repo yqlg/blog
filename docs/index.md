@@ -36,4 +36,4 @@ features:
 
 <LatestPosts :limit="6" />
 
-> 本博客的所有源码都在 [GitHub 仓库](https://github.com/yqlg/blog) 里，欢迎 star、提 issue，或者直接 fork 一份做你自己的博客。
+<HomeContact />

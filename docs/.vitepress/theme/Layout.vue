@@ -2,6 +2,7 @@
 import DefaultTheme from 'vitepress/theme'
 import { useData } from 'vitepress'
 import PostHeader from './components/PostHeader.vue'
+import Giscus from './components/Giscus.vue'
 
 const { Layout } = DefaultTheme
 const { frontmatter } = useData()
@@ -11,6 +12,9 @@ const { frontmatter } = useData()
   <Layout>
     <template #doc-before>
       <PostHeader v-if="frontmatter.date" />
+    </template>
+    <template #doc-after>
+      <Giscus v-if="frontmatter.date" />
     </template>
   </Layout>
 </template>

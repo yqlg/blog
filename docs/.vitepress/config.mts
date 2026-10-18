@@ -1,4 +1,5 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, type HeadConfig } from 'vitepress'
+import { site } from './site.mts'
 import { buildSidebar } from './sidebar.mts'
 import { feedPlugin } from './feed.mts'
 
@@ -7,14 +8,43 @@ import { feedPlugin } from './feed.mts'
  *   BASE     站点的发布子路径。GitHub Pages 项目站点是 /blog/，
  *            自定义域名或 Cloudflare Pages 根路径时设为 /（默认）。
  *   SITE_URL 站点主域名，用于 sitemap 与 RSS 里的绝对链接。
+ *   CF_ANALYTICS_TOKEN 可选，覆盖 site.mts 里的统计 token。
  */
 const base = process.env.BASE || '/'
-const siteUrl = (process.env.SITE_URL || 'https://yqlg.github.io').replace(/\/+$/, '')
+const siteUrl = (process.env.SITE_URL || site.url).replace(/\/+$/, '')
 /** 主站地址：镜像站（如 Cloudflare Pages）用它做 canonical，避免重复收录 */
 const canonicalBase = (process.env.CANONICAL_URL || `${siteUrl}${base}`).replace(/\/+$/, '')
 
-const TITLE = 'Liny'
-const DESCRIPTION = 'Liny 的个人博客：记录技术笔记与生活随笔，用最少的成本长期写下去。'
+const TITLE = site.name
+const DESCRIPTION = site.description
+const analyticsToken = process.env.CF_ANALYTICS_TOKEN || site.analytics.cloudflareToken
+
+const head: HeadConfig[] = [
+  ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}favicon.svg` }],
+  ['link', { rel: 'apple-touch-icon', href: `${base}avatar.png` }],
+  ['link', { rel: 'alternate', type: 'application/rss+xml', title: `${TITLE} · RSS`, href: `${base}feed.xml` }],
+  ['meta', { name: 'theme-color', content: '#2f7a63' }],
+  ['meta', { name: 'author', content: site.author.name }],
+  ['meta', { property: 'og:type', content: 'website' }],
+  ['meta', { property: 'og:site_name', content: TITLE }],
+  ['meta', { property: 'og:image', content: `${siteUrl}${base}og.png` }],
+  ['meta', { property: 'og:image:width', content: '1200' }],
+  ['meta', { property: 'og:image:height', content: '630' }],
+  ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+  ['meta', { name: 'format-detection', content: 'telephone=no' }]
+]
+
+// Cloudflare Web Analytics：免费、无 Cookie，不需要同意弹窗
+if (analyticsToken) {
+  head.push([
+    'script',
+    {
+      defer: 'true',
+      src: 'https://static.cloudflareinsights.com/beacon.min.js',
+      'data-cf-beacon': JSON.stringify({ token: analyticsToken })
+    }
+  ])
+}
 
 export default defineConfig({
   lang: 'zh-CN',
@@ -26,20 +56,7 @@ export default defineConfig({
   cleanUrls: false,
   ignoreDeadLinks: false,
 
-  head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}favicon.svg` }],
-    ['link', { rel: 'apple-touch-icon', href: `${base}logo.svg` }],
-    ['link', { rel: 'alternate', type: 'application/rss+xml', title: `${TITLE} · RSS`, href: `${base}feed.xml` }],
-    ['meta', { name: 'theme-color', content: '#2f7a63' }],
-    ['meta', { name: 'author', content: 'Liny' }],
-    ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:site_name', content: TITLE }],
-    ['meta', { property: 'og:image', content: `${siteUrl}${base}og.png` }],
-    ['meta', { property: 'og:image:width', content: '1200' }],
-    ['meta', { property: 'og:image:height', content: '630' }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'format-detection', content: 'telephone=no' }]
-  ],
+  head,
 
   sitemap: {
     hostname: `${siteUrl}${base}`
