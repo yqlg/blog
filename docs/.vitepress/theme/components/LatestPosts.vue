@@ -27,6 +27,7 @@ const latest = posts.filter((post) => props.section === 'all' || post.section ==
 
 const sectionLabel = (section: Section) => SECTIONS[section].short
 const formatDate = (date: string) => date.replace(/-/g, '.')
+const emptyLabel = props.section === 'all' ? '内容' : SECTIONS[props.section].short
 </script>
 
 <template>
@@ -36,7 +37,9 @@ const formatDate = (date: string) => date.replace(/-/g, '.')
       <a class="latest-more" :href="withBase(moreHref)">{{ moreText }} →</a>
     </header>
 
-    <ul class="latest-list">
+    <p v-if="!latest.length" class="latest-empty">还没有{{ emptyLabel }}，等你来写第一篇。</p>
+
+    <ul v-else class="latest-list">
       <li v-for="(post, index) in latest" :key="post.url" class="latest-item">
         <a class="latest-link" :href="withBase(post.url)">
           <span class="latest-index">{{ String(index + 1).padStart(2, '0') }}</span>
@@ -86,6 +89,15 @@ const formatDate = (date: string) => date.replace(/-/g, '.')
 
 .latest-more:hover {
   color: var(--vp-c-brand-1);
+}
+
+.latest-empty {
+  margin: 0;
+  padding: 20px 6px;
+  font-size: 14px;
+  color: var(--vp-c-text-3);
+  border-top: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--vp-c-divider);
 }
 
 .latest-list {

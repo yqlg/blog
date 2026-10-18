@@ -385,7 +385,7 @@ ssh -T git@github.com   # 出现 Hi yqlg! 即成功
 
 ## 十、已知占位内容（请替换）
 
-- `docs/notes/`、`docs/essays/`、`docs/journey/` 下的文章是**示例**，用于展示排版效果，可直接删除或改写。
+- `docs/notes/` 下有 3 篇示例文章，用于展示排版；`docs/essays/`（动态）与 `docs/journey/`（硕士成长计划）目前为空，等你填内容。
 - `docs/about.md` 的自我介绍是通用文案，联系方式已按实际信息填写。
 - `docs/.vitepress/site.mts` 里的 giscus `repoId` / `categoryId` 与统计 token 还是空的，按第八节填写。
 - 头像与分享图是脚本生成的：`python scripts/gen-og.py` 可重新生成 `avatar.png` / `og.png`；想换成自己的照片，直接替换 `docs/public/avatar.png` 与 `logo.svg` 即可。
