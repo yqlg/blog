@@ -97,7 +97,6 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: { src: '/logo.svg', alt: 'Liny' },
     siteTitle: TITLE,
 
     nav: [

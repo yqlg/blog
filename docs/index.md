@@ -32,4 +32,6 @@ features:
     linkText: 查看进度
 ---
 
-<LatestPosts :limit="6" />
+<NowDoing />
+
+<LatestPosts section="essays" :limit="3" title="最近动态" more-text="全部动态" more-link="/essays/" />

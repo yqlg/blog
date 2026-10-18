@@ -3,8 +3,25 @@ import { withBase } from 'vitepress'
 import { data as posts } from '../../posts.data.mts'
 import { SECTIONS, type Section } from '../../sections.mts'
 
-const props = withDefaults(defineProps<{ limit?: number }>(), { limit: 6 })
-const latest = posts.slice(0, props.limit)
+const props = withDefaults(
+  defineProps<{
+    limit?: number
+    /** 只显示某个栏目；all 表示全部 */
+    section?: Section | 'all'
+    title?: string
+    moreText?: string
+    moreLink?: string
+  }>(),
+  {
+    limit: 6,
+    section: 'all',
+    title: '最新文章',
+    moreText: '全部归档',
+    moreLink: '/archive.html'
+  }
+)
+
+const latest = posts.filter((post) => props.section === 'all' || post.section === props.section).slice(0, props.limit)
 
 const sectionLabel = (section: Section) => SECTIONS[section].short
 const formatDate = (date: string) => date.replace(/-/g, '.')
@@ -13,8 +30,8 @@ const formatDate = (date: string) => date.replace(/-/g, '.')
 <template>
   <section class="latest-posts">
     <header class="latest-head">
-      <h2 class="latest-title">最新文章</h2>
-      <a class="latest-more" :href="withBase('/archive.html')">全部归档 →</a>
+      <h2 class="latest-title">{{ title }}</h2>
+      <a class="latest-more" :href="withBase(moreLink)">{{ moreText }} →</a>
     </header>
 
     <ul class="latest-list">
